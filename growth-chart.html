@@ -11,23 +11,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-    /* 🎨 アスリート仕様の究極グラスモーフィズムテーマ */
+    /* 🎨 アドバンスド・アスレチック・ブルーテーマ（ライトモード） */
     :root {
-        /* 【修正】透過度を極限まで上げるため、不透明度を0.5から0.3（30%）に変更 */
-        --card-bg: rgba(20, 20, 20, 0.3); 
-        --primary-color: #ffffff;
-        --accent-color: #ccff00;
-        --border-color: rgba(255, 255, 255, 0.15); 
-        --text-main: #f4f4f5;
-        --text-muted: #a1a1aa;
+        /* 【修正】全体を明るくするため、背景色をホワイトに変更 */
+        --bg-color: #ffffff; 
+        /* 【修正】レポートカードの背景を半透明のホワイトにし、透過度を30%から70%に調整して明るさを確保 */
+        --card-bg: rgba(255, 255, 255, 0.7); 
+        /* 【修正】テキストをダークグレーに変更 */
+        --primary-color: #18181b; 
+        /* 【修正】アクセントカラーをネオンイエローから、アスレチックブルーに変更 */
+        --accent-color: #007bff; 
+        /* 【修正】枠線を明るいグレーに変更 */
+        --border-color: #e2e8f0; 
+        --text-main: #18181b;
+        --text-muted: #71717a;
     }
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        background-color: #121212; 
+        background-color: var(--bg-color);
+        /* 背景グラデーションを明るい色に調整 */
         background-image: 
-            radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.15) 0%, transparent 40%),
-            radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+            radial-gradient(circle at 10% 10%, rgba(0, 123, 255, 0.05) 0%, transparent 40%),
+            radial-gradient(circle at 90% 90%, rgba(0, 0, 0, 0.02) 0%, transparent 40%);
         background-attachment: fixed;
         color: var(--text-main);
         padding: 10px;
@@ -41,13 +47,13 @@
         width: 100%;
         max-width: 800px;
         background: var(--card-bg);
-        /* すりガラス効果（背景のぼかし）を追加 */
+        /* すりガラス効果は維持（背景のぼかし） */
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         padding: 20px;
         border-radius: 16px;
         border: 1px solid var(--border-color); 
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05); /* 影を薄くしてクリーンに */
         margin-bottom: 20px;
         position: relative;
         box-sizing: border-box;
@@ -89,9 +95,9 @@
         font-weight: 900;
         padding: 8px 15px;
         border: none;
-        border-bottom: 2px solid rgba(255,255,255,0.3);
+        border-bottom: 2px solid rgba(0,0,0,0.1); /* 下線を明るく */
         background: transparent;
-        color: var(--accent-color);
+        color: var(--accent-color); /* 名前はアクセントカラーに */
         text-align: center;
         width: 180px;
         outline: none;
@@ -113,8 +119,7 @@
         font-weight: bold;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        /* セレクトボックスも透過度アップ */
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.8); /* セレクトボックスを明るく */
         color: var(--primary-color);
         outline: none;
     }
@@ -139,8 +144,8 @@
         line-height: 1.6;
         min-height: 100px;
         box-sizing: border-box;
-        /* ボックスの透過度アップ */
-        background-color: rgba(0, 0, 0, 0.25);
+        /* ボックスを明るいグレーに */
+        background-color: rgba(244, 244, 247, 0.6); 
         color: var(--primary-color);
         outline: none;
         transition: border-color 0.2s;
@@ -149,7 +154,7 @@
 
     /* 動画リンク入力セクション */
     .video-link-section {
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(244, 244, 247, 0.6);
         border: 1px solid var(--border-color);
         padding: 15px;
         border-radius: 8px;
@@ -162,8 +167,8 @@
         font-size: 14px;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        background: rgba(0, 0, 0, 0.4);
-        color: #fff;
+        background: #ffffff; /* 入力欄は白 */
+        color: #000;
         margin-bottom: 10px;
         box-sizing: border-box;
         outline: none;
@@ -177,7 +182,7 @@
         align-items: center;
         justify-content: center;
         gap: 15px;
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(244, 244, 247, 0.6);
         padding: 15px;
         border-radius: 8px;
         border: 1px solid var(--border-color);
@@ -190,6 +195,7 @@
         background: #ffffff;
         padding: 5px;
         border-radius: 4px;
+        border: 1px solid var(--border-color); /* QRのフチを追加 */
     }
     .video-text h3 {
         margin: 0 0 5px 0;
@@ -216,14 +222,15 @@
         position: relative;
         height: 300px;
         width: 100%;
-        /* グラフエリアの背景透過度もアップ */
-        background: radial-gradient(circle, rgba(40,40,40,0.4) 0%, rgba(10,10,10,0.4) 100%);
+        /* グラフエリアの背景を明るいグラデーションに */
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(244,244,247,0.8) 100%);
         border-radius: 12px;
         padding: 10px;
         box-sizing: border-box;
+        border: 1px solid var(--border-color);
     }
     .axis-item {
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(244, 244, 247, 0.6);
         border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 15px;
@@ -251,7 +258,7 @@
     input[type=range] {
         flex: 1;
         -webkit-appearance: none;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(0, 0, 0, 0.05); /* トラックを明るく */
         height: 4px;
         border-radius: 2px;
         outline: none;
@@ -263,12 +270,12 @@
         border-radius: 50%;
         background: var(--text-muted);
         cursor: pointer;
+        border: 2px solid #ffffff; /* サムにフチを追加 */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .slider-row.current input[type=range]::-webkit-slider-thumb {
-        background: var(--accent-color);
-        box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
-        width: 16px;
-        height: 16px;
+        background: var(--accent-color); /* サムをアスレチックブルーに */
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
     }
 
     .score-val { font-weight: 900; font-size: 14px; width: 20px; text-align: right; }
@@ -283,8 +290,8 @@
         line-height: 1.5;
         min-height: 50px;
         box-sizing: border-box;
-        /* コメント欄も透過度アップ */
-        background: rgba(0, 0, 0, 0.2);
+        /* コメント欄も白に */
+        background: #ffffff;
         color: var(--primary-color);
         outline: none;
         transition: border-color 0.2s;
@@ -297,13 +304,13 @@
         max-width: 800px;
         padding: 18px;
         background-color: var(--accent-color);
-        color: #000000;
+        color: #ffffff; /* ボタンテキストは白 */
         font-size: 16px;
         font-weight: 900;
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
+        box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3);
         margin-bottom: 40px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -316,7 +323,7 @@
         body { padding: 40px 20px; }
         #report-container { padding: 40px; }
         .header h1 { font-size: 32px; }
-        .player-meta { flex-direction: row; justify-content: center; gap: 40px; }
+        .player-meta { flex-direction: row; justify: center; gap: 40px; }
         .video-access-area { flex-direction: row; text-align: left; }
         .content-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
         .chart-box { height: 400px; }
@@ -324,23 +331,23 @@
 
     /* =======================================================
        🖨️ PDFエクスポート用強制整形（非常に重要）
-       透過効果はPDF出力時にバグるため、このクラスが付与された瞬間だけ
-       背景をベタ塗りのダークグレー（#111111）に強制変更します。
+       一時的に「すりガラス効果」をオフにして、完全に真っ白な背景に自動整形します。
        ======================================================= */
     .export-format { 
         width: 800px !important; 
         max-width: none !important; 
         padding: 40px !important; 
-        background: #111111 !important; /* 透け感を消してベタ塗りに */
+        background: #ffffff !important; /* 透け感を消して白ベタ塗りに */
         backdrop-filter: none !important; /* ぼかし効果をオフ */
         border: none !important;
+        color: #000000 !important;
     }
     .export-format .player-meta { flex-direction: row !important; gap: 40px !important; }
-    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #1a1a1a !important; }
+    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #f4f4f7 !important; }
     .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
-    .export-format .chart-box { height: 400px !important; background: #1a1a1a !important; }
-    .export-format .axis-item { background: #1a1a1a !important; border: 1px solid #333 !important; }
-    .export-format .summary-box { background: #1a1a1a !important; border: 1px solid #333 !important; }
+    .export-format .chart-box { height: 400px !important; background: #f4f4f7 !important; }
+    .export-format .axis-item { background: #f4f4f7 !important; border: 1px solid #e2e8f0 !important; }
+    .export-format .summary-box { background: #f4f4f7 !important; border: 1px solid #e2e8f0 !important; color: #000000 !important; }
     
     .exporting .hide-on-export { display: none !important; }
     
@@ -351,9 +358,11 @@
         appearance: none !important; 
         -webkit-appearance: none !important; 
         padding: 0 !important;
-        color: var(--primary-color) !important;
+        color: #000000 !important;
     }
-    .exporting .name-group input { border-bottom: none !important; }
+    .exporting .name-group input { border-bottom: none !important; color: var(--accent-color) !important; }
+    .exporting .score-val { color: #000000 !important; }
+    .exporting .slider-row.current .score-val { color: var(--accent-color) !important; }
 </style>
 </head>
 <body>
@@ -463,7 +472,7 @@
         const ctx = document.getElementById('radarChart').getContext('2d');
         if (chartInstance) chartInstance.destroy();
         
-        // ダークテーマ用のグラフ配色
+        // 💡ライトテーマ用のグラフ配色
         chartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
@@ -472,19 +481,19 @@
                     { 
                         label: '現在 (Current)', 
                         data: axesData.map(a => a.after), 
-                        backgroundColor: 'rgba(204, 255, 0, 0.25)', 
-                        borderColor: '#ccff00', 
-                        pointBackgroundColor: '#ccff00',
-                        pointBorderColor: '#000',
+                        backgroundColor: 'rgba(0, 123, 255, 0.15)', // アスレチックブルー透過
+                        borderColor: '#007bff', 
+                        pointBackgroundColor: '#007bff',
+                        pointBorderColor: '#ffffff',
                         borderWidth: 2, 
                         order: 1 
                     },
                     { 
                         label: '入会時 (Past)', 
                         data: axesData.map(a => a.before), 
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)', 
-                        borderColor: '#666666', 
-                        pointBackgroundColor: '#666666',
+                        backgroundColor: 'rgba(0, 0, 0, 0.02)', // ライトグレー透過
+                        borderColor: '#a1a1aa', 
+                        pointBackgroundColor: '#a1a1aa',
                         borderWidth: 1.5, 
                         borderDash: [4,4], 
                         order: 2 
@@ -498,13 +507,13 @@
                     r: { 
                         min: 0, max: 10, 
                         ticks: { display: false, stepSize: 2 },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: { font: { size: 11, weight: 'bold', family: 'Arial Black' }, color: '#ffffff' }
+                        grid: { color: 'rgba(0, 0, 0, 0.05)' }, // 目盛り線を薄く
+                        angleLines: { color: 'rgba(0, 0, 0, 0.05)' },
+                        pointLabels: { font: { size: 11, weight: 'bold', family: 'Arial Black' }, color: '#18181b' }
                     } 
                 },
                 plugins: { 
-                    legend: { position: 'bottom', labels: { color: '#ffffff', boxWidth: 12, font: { size: 11, weight: 'bold' } } } 
+                    legend: { position: 'bottom', labels: { color: '#18181b', boxWidth: 12, font: { size: 11, weight: 'bold' } } } 
                 }
             }
         });
@@ -535,28 +544,28 @@
         
         document.querySelectorAll('textarea').forEach(ta => {
             ta.innerHTML = ta.value; 
-            if(ta.value.trim() === '') { ta.value = "NO COMMENT"; ta.style.color = "#666666"; }
+            if(ta.value.trim() === '') { ta.value = "NO COMMENT"; ta.style.color = "#71717a"; }
         });
 
-        // 💡エクスポート用のクラスを付与し、一時的に「すりガラス効果」をオフにしてベタ塗りにする
+        // 💡エクスポート用のクラスを付与し、一時的に「すりガラス効果」をオフにして真っ白なベタ塗りにする
         container.classList.add('exporting', 'export-format');
 
         setTimeout(() => {
-            // 背景色をダークグレー(#111111)でキャプチャ
-            html2canvas(container, { scale: 2, backgroundColor: "#111111" }).then(canvas => {
+            // 背景色を完全にホワイト(#ffffff)でキャプチャ
+            html2canvas(container, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
                 
-                // キャプチャが終わったらクラスを外して、画面上は再び「すりガラス効果」に戻す
+                // キャプチャが終わったらクラスを外して、画面上は再び「明るいすりガラス効果」に戻す
                 container.classList.remove('exporting', 'export-format');
                 document.querySelectorAll('textarea').forEach(ta => {
-                    if(ta.value === "NO COMMENT") { ta.value = ""; ta.style.color = "#ffffff"; }
+                    if(ta.value === "NO COMMENT") { ta.value = ""; ta.style.color = "#18181b"; }
                 });
 
                 const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
-                // PDF全体の背景を黒で塗りつぶす（フチなし黒背景）
-                pdf.setFillColor(17, 17, 17);
+                // PDF全体の背景を白で塗りつぶす（フチなし白背景）
+                pdf.setFillColor(255, 255, 255);
                 pdf.rect(0, 0, 210, 297, 'F');
 
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -564,8 +573,8 @@
                 pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
                 if (videoUrl) {
-                    // ダークテーマに映えるネオンカラーのタップリンク
-                    pdf.setTextColor(204, 255, 0); // Accent Color (#ccff00)
+                    // ライトテーマに映えるアスレチックブルーのタップリンク
+                    pdf.setTextColor(0, 123, 255); // Accent Color (#007bff)
                     pdf.setFontSize(12);
                     pdf.textWithLink('>>> TAP HERE TO PLAY VIDEO <<<', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
                 }
