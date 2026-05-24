@@ -13,8 +13,8 @@
 <style>
     /* 🎨 アスリート仕様のダーク・グラスモーフィズムテーマ */
     :root {
-        /* カードの背景を透過ブラック（70%の不透明度）に変更 */
-        --card-bg: rgba(20, 20, 20, 0.7); 
+        /* カードの背景を透過ブラック（65%の不透明度）に変更。少し透過を強める */
+        --card-bg: rgba(20, 20, 20, 0.65); 
         --primary-color: #ffffff;
         --accent-color: #ccff00;
         --border-color: rgba(255, 255, 255, 0.15); /* 枠線も少し透過させてガラス感を出す */
@@ -24,11 +24,12 @@
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        /* 背景全体を漆黒にしつつ、左上と右下にうっすらとした光のグラデーションを置く */
-        background-color: #000000;
+        /* 【修正】背景全体を真っ黒(#000000)から真っ黒に近いグレー(#121212)に変更 */
+        background-color: #121212;
+        /* 【修正】背景のグラデーション（radial-gradient）の不透明度を上げて視認性を高める */
         background-image: 
-            radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+            radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.15) 0%, transparent 40%),
+            radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
         background-attachment: fixed;
         color: var(--text-main);
         padding: 10px;
