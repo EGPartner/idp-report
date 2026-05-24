@@ -213,4 +213,213 @@
     }
 
     @media (min-width: 768px) {
-        body { padding: 20px
+        body { padding: 20px; }
+        #report-container { padding: 40px; }
+        .header h1 { font-size: 24px; }
+        .player-meta { flex-direction: row; justify-content: center; gap: 40px; }
+        .video-access-area { flex-direction: row; text-align: left; }
+        .content-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+        .chart-box { height: 350px; }
+    }
+
+    /* PDFエクスポート用整形 */
+    .export-format { width: 800px !important; max-width: none !important; padding: 40px !important; }
+    .export-format .player-meta { flex-direction: row !important; gap: 40px !important; }
+    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; }
+    .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
+    .export-format .chart-box { height: 350px !important; }
+    .exporting .hide-on-export { display: none !important; }
+    .exporting input, .exporting select, .exporting textarea { border: none !important; background: transparent !important; appearance: none !important; -webkit-appearance: none !important; padding: 0 !important; }
+</style>
+</head>
+<body>
+
+<div id="report-container">
+    
+    <div class="header">
+        <h1>Shiba Lab. IDP Report</h1>
+        <div class="player-meta">
+            <div class="name-group">
+                <input type="text" id="playerName" value="山田 太郎"> <span>選手</span>
+            </div>
+            <div class="date-group">
+                <select id="yearSelect"></select> 年
+                <select id="monthSelect"></select> 月度
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <label>【総括・フィードバック】</label>
+        <textarea id="summaryComment" class="summary-box" placeholder="今月の全体的な成長と今後の課題について入力してください"></textarea>
+    </div>
+
+    <div class="video-link-section hide-on-export">
+        <label style="font-weight: bold; display: block; margin-bottom: 8px; color: #2b6cb0;">🔗 共有する動画のURLを入力</label>
+        <input type="url" id="videoUrlInput" placeholder="YouTubeやGoogleドライブのリンク" oninput="generateQR()">
+    </div>
+
+    <div class="video-access-area" id="videoAccessArea" style="display: none;">
+        <div id="qrcode"></div>
+        <div class="video-text">
+            <h3>▶ 解説動画はこちらから</h3>
+            <p>※スマホでPDFをご覧の方は、下の青いリンク（またはこのエリア）をタップしてください。<br>※紙でご覧の方は左のQRコードを読み取ってください。</p>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="chart-box">
+            <canvas id="radarChart"></canvas>
+        </div>
+        <div id="axes-container"></div>
+    </div>
+
+</div>
+
+<button class="export-btn" onclick="exportToPDF()">📄 PDFファイルとして保存（動画リンク付き）</button>
+
+<script>
+    // 分析項目
+    const axesData = [
+        { id: 'dribble', name: 'ドリブル', before: 3, after: 7 },
+        { id: 'kick', name: 'キック', before: 4, after: 6 },
+        { id: 'body', name: '身体操作', before: 3, after: 8 },
+        { id: 'application', name: '応用力', before: 5, after: 6 },
+        { id: 'spatial', name: '空間認知', before: 2, after: 7 }
+    ];
+
+    // 年月セレクターの初期化
+    function setupDateSelectors() {
+        const yearSelect = document.getElementById('yearSelect');
+        const monthSelect = document.getElementById('monthSelect');
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth() + 1;
+
+        for (let y = currentYear - 1; y <= currentYear + 1; y++) {
+            const opt = document.createElement('option');
+            opt.value = y; opt.text = y;
+            if (y === currentYear) opt.selected = true;
+            yearSelect.appendChild(opt);
+        }
+
+        for (let m = 1; m <= 12; m++) {
+            const opt = document.createElement('option');
+            const mStr = m < 10 ? '0' + m : m;
+            opt.value = mStr; opt.text = mStr;
+            if (m === currentMonth) opt.selected = true;
+            monthSelect.appendChild(opt);
+        }
+    }
+
+    // 各項目UIの生成
+    function buildUI() {
+        const container = document.getElementById('axes-container');
+        axesData.forEach((axis, index) => {
+            const div = document.createElement('div');
+            div.className = 'axis-item';
+            div.innerHTML = `
+                <div class="axis-header">${axis.name}</div>
+                <div class="hide-on-export">
+                    <div class="slider-row">
+                        <span style="width:40px;">入会時</span>
+                        <input type="range" min="1" max="10" value="${axis.before}" oninput="updateData(${index}, 'before', this.value)">
+                        <span class="score-val" id="before-val-${index}">${axis.before}</span>
+                    </div>
+                    <div class="slider-row" style="color:var(--accent-color);">
+                        <span style="width:40px; font-weight:bold;">現在</span>
+                        <input type="range" min="1" max="10" value="${axis.after}" oninput="updateData(${index}, 'after', this.value)">
+                        <span class="score-val" id="after-val-${index}">${axis.after}</span>
+                    </div>
+                </div>
+                <textarea class="comment-box" placeholder="特記なし"></textarea>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // チャートの初期化
+    let chartInstance = null;
+    function initChart() {
+        const ctx = document.getElementById('radarChart').getContext('2d');
+        if (chartInstance) chartInstance.destroy();
+        chartInstance = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: axesData.map(a => a.name),
+                datasets: [
+                    { label: '現在', data: axesData.map(a => a.after), backgroundColor: 'rgba(214, 158, 46, 0.4)', borderColor: '#d69e2e', borderWidth: 2, order: 1 },
+                    { label: '入会時', data: axesData.map(a => a.before), backgroundColor: 'rgba(113, 128, 150, 0.1)', borderColor: '#718096', borderWidth: 1, borderDash: [5,5], order: 2 }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 10, ticks: { display: false } } } }
+        });
+    }
+
+    // データ更新
+    function updateData(index, type, value) {
+        axesData[index][type] = parseInt(value);
+        document.getElementById(`${type}-val-${index}`).textContent = value;
+        initChart();
+    }
+
+    // QRコード生成
+    function generateQR() {
+        const url = document.getElementById('videoUrlInput').value.trim();
+        const accessArea = document.getElementById('videoAccessArea');
+        const qrContainer = document.getElementById('qrcode');
+        qrContainer.innerHTML = "";
+        if (url) {
+            accessArea.style.display = "flex";
+            new QRCode(qrContainer, { text: url, width: 80, height: 80 });
+        } else {
+            accessArea.style.display = "none";
+        }
+    }
+
+    // PDFエクスポート
+    function exportToPDF() {
+        const container = document.getElementById('report-container');
+        const videoUrl = document.getElementById('videoUrlInput').value.trim();
+        
+        document.querySelectorAll('textarea').forEach(ta => {
+            ta.innerHTML = ta.value; 
+            if(ta.value.trim() === '') { ta.value = "特記なし"; ta.style.color = "#718096"; }
+        });
+
+        container.classList.add('exporting', 'export-format');
+
+        setTimeout(() => {
+            html2canvas(container, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
+                container.classList.remove('exporting', 'export-format');
+                document.querySelectorAll('textarea').forEach(ta => {
+                    if(ta.value === "特記なし") { ta.value = ""; ta.style.color = "#000000"; }
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+                if (videoUrl) {
+                    pdf.setTextColor(26, 54, 93);
+                    pdf.setFontSize(12);
+                    pdf.textWithLink('【ここをタップして解説動画を再生】', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
+                }
+
+                const playerName = document.getElementById('playerName').value.trim() || '選手';
+                const year = document.getElementById('yearSelect').value;
+                const month = document.getElementById('monthSelect').value;
+                pdf.save(`IDP_Report_${playerName}_${year}${month}.pdf`);
+            });
+        }, 150);
+    }
+
+    setupDateSelectors();
+    buildUI();
+    initChart();
+</script>
+</body>
+</html>
