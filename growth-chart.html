@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Shiba Lab. IDP Report（究極透過・ネオンボルト仕様）</title>
+<title>Shiba Lab. IDP Report（チャコールグレー・エディション）</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -11,11 +11,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-    /* 🎨 究極の透過・ダーク＆ネオンボルト（Shiba Lab. アスリート仕様） */
+    /* 🎨 チャコールグレー × ネオンボルト（Shiba Lab. 次世代アスリート仕様） */
     :root {
-        /* 【さらに修正】透過度を限界突破（不透明度15%） */
-        --card-bg: rgba(17, 17, 17, 0.05); 
-        --accent-color: #ccff00; 
+        /* 【修正】真っ黒を避け、洗練されたチャコールグレー(30%透過)をベースに */
+        --card-bg: rgba(45, 45, 45, 0.4); 
+        --accent-color: #ccff00; /* ネオンボルト */
         --primary-color: #ffffff; 
         --border-color: rgba(255, 255, 255, 0.15); 
         --text-main: #f4f4f5;
@@ -24,10 +24,11 @@
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        background-color: #121212; 
+        /* 【修正】背景を漆黒ではなく、深みのあるチャコールグレー(#1e1e1e)に */
+        background-color: #1e1e1e; 
         background-image: 
-            radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.15) 0%, transparent 40%),
-            radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.1) 0%, transparent 40%);
+            radial-gradient(circle at 15% 15%, rgba(204, 255, 0, 0.12) 0%, transparent 50%),
+            radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
         background-attachment: fixed;
         color: var(--text-main);
         padding: 10px;
@@ -41,13 +42,13 @@
         width: 100%;
         max-width: 800px;
         background: var(--card-bg);
-        /* すりガラス効果（Blur 25px）は維持して高級感を出す */
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
+        /* すりガラス効果 */
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
         padding: 20px;
-        border-radius: 16px;
+        border-radius: 20px;
         border: 1px solid var(--border-color); 
-        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         margin-bottom: 20px;
         position: relative;
         box-sizing: border-box;
@@ -57,7 +58,7 @@
         text-align: center;
         border-bottom: 1px solid var(--border-color);
         padding-bottom: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
     
     .header h1 {
@@ -70,7 +71,6 @@
         text-transform: uppercase;
     }
 
-    /* 選手名・年月入力セクション */
     .player-meta {
         display: flex;
         flex-direction: column;
@@ -89,7 +89,7 @@
         font-weight: 900;
         padding: 8px 15px;
         border: none;
-        border-bottom: 2px solid rgba(255,255,255,0.3);
+        border-bottom: 2px solid rgba(255,255,255,0.2);
         background: transparent;
         color: var(--accent-color); 
         text-align: center;
@@ -113,13 +113,12 @@
         font-weight: bold;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        background: rgba(0, 0, 0, 0.2); /* さらに透過 */
+        background: rgba(0, 0, 0, 0.4);
         color: var(--primary-color);
         outline: none;
     }
 
-    /* 総括コメント欄 */
-    .summary-section { margin-bottom: 25px; }
+    .summary-section { margin-bottom: 30px; }
     .summary-section label {
         display: block;
         font-size: 12px;
@@ -133,24 +132,23 @@
         width: 100%;
         padding: 15px;
         border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 14px;
         line-height: 1.6;
-        min-height: 100px;
+        min-height: 110px;
         box-sizing: border-box;
-        background-color: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
+        background-color: rgba(255, 255, 255, 0.05);
         color: var(--primary-color);
         outline: none;
         transition: border-color 0.2s;
     }
     .summary-box:focus { border-color: var(--accent-color); }
 
-    /* 動画リンク入力セクション */
     .video-link-section {
-        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
+        background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--border-color);
         padding: 15px;
-        border-radius: 8px;
+        border-radius: 12px;
         margin-bottom: 20px;
         text-align: center;
     }
@@ -159,35 +157,33 @@
         padding: 12px;
         font-size: 14px;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         color: #fff;
         margin-bottom: 10px;
         box-sizing: border-box;
         outline: none;
     }
-    .video-link-section input:focus { border-color: var(--accent-color); }
     
-    /* レポート印字用 動画アクセスエリア */
     .video-access-area {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 15px;
-        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
-        padding: 15px;
-        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 12px;
         border: 1px solid var(--border-color);
-        margin-bottom: 25px;
+        margin-bottom: 30px;
         text-align: center;
     }
     #qrcode {
         width: 80px;
         height: 80px;
         background: #ffffff;
-        padding: 5px;
-        border-radius: 4px;
+        padding: 8px;
+        border-radius: 8px;
     }
     .video-text h3 {
         margin: 0 0 5px 0;
@@ -203,7 +199,6 @@
         color: var(--text-muted);
     }
 
-    /* グラフ・スライダー構成 */
     .content-grid {
         display: grid;
         grid-template-columns: 1fr;
@@ -212,43 +207,43 @@
     }
     .chart-box {
         position: relative;
-        height: 300px;
+        height: 320px;
         width: 100%;
-        background: radial-gradient(circle, rgba(40,40,40,0.2) 0%, rgba(10,10,10,0.2) 100%); /* さらに透過 */
-        border-radius: 12px;
-        padding: 10px;
+        background: radial-gradient(circle, rgba(60,60,60,0.4) 0%, rgba(30,30,30,0.4) 100%);
+        border-radius: 16px;
+        padding: 15px;
         box-sizing: border-box;
+        border: 1px solid var(--border-color);
     }
     .axis-item {
-        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
+        background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 10px;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 12px;
     }
     .axis-header {
         font-weight: 900;
         color: var(--primary-color);
-        margin-bottom: 12px;
+        margin-bottom: 15px;
         font-size: 14px;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 8px;
+        padding-bottom: 10px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
     
-    /* カスタムスライダー */
     .slider-row {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
+        gap: 12px;
+        margin-bottom: 10px;
         font-size: 12px;
     }
     input[type=range] {
         flex: 1;
         -webkit-appearance: none;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.1);
         height: 4px;
         border-radius: 2px;
         outline: none;
@@ -263,7 +258,7 @@
     }
     .slider-row.current input[type=range]::-webkit-slider-thumb {
         background: var(--accent-color); 
-        box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
+        box-shadow: 0 0 12px rgba(204, 255, 0, 0.7);
         width: 16px;
         height: 16px;
     }
@@ -272,77 +267,70 @@
     
     .comment-box {
         width: 100%;
-        margin-top: 10px;
-        padding: 10px;
+        margin-top: 12px;
+        padding: 12px;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        border-radius: 8px;
         font-size: 13px;
         line-height: 1.5;
-        min-height: 50px;
+        min-height: 60px;
         box-sizing: border-box;
-        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
+        background: rgba(0, 0, 0, 0.2);
         color: var(--primary-color);
         outline: none;
-        transition: border-color 0.2s;
     }
     .comment-box:focus { border-color: var(--accent-color); }
 
-    /* エクスポートボタン（ネオン） */
     .export-btn {
         width: 100%;
         max-width: 800px;
-        padding: 18px;
+        padding: 20px;
         background-color: var(--accent-color); 
         color: #000000;
         font-size: 16px;
         font-weight: 900;
         border: none;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
-        box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
-        margin-bottom: 40px;
+        box-shadow: 0 8px 25px rgba(204, 255, 0, 0.3);
+        margin-bottom: 50px;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         transition: all 0.2s;
     }
-    .export-btn:active { transform: scale(0.98); }
+    .export-btn:active { transform: scale(0.97); }
 
-    /* レスポンシブ (PC) */
     @media (min-width: 768px) {
         body { padding: 40px 20px; }
         #report-container { padding: 40px; }
         .header h1 { font-size: 32px; }
-        .player-meta { flex-direction: row; justify-content: center; gap: 40px; }
+        .player-meta { flex-direction: row; justify-content: center; gap: 50px; }
         .video-access-area { flex-direction: row; text-align: left; }
         .content-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-        .chart-box { height: 400px; }
+        .chart-box { height: 450px; }
     }
 
-    /* =======================================================
-       🖨️ PDFエクスポート用強制整形（非常に重要）
-       ======================================================= */
+    /* 🖨️ エクスポート用：印字に耐えうるクリーンなチャコール設定 */
     .export-format { 
         width: 800px !important; 
         max-width: none !important; 
         padding: 40px !important; 
-        background: #111111 !important; /* 透け感を消してベタ塗りに */
-        backdrop-filter: none !important; /* ぼかし効果をオフ */
+        background: #1e1e1e !important; 
+        backdrop-filter: none !important; 
         border: none !important;
     }
-    .export-format .player-meta { flex-direction: row !important; gap: 40px !important; }
-    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #1a1a1a !important; }
+    .export-format .player-meta { flex-direction: row !important; gap: 50px !important; }
+    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #2a2a2a !important; }
     .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
-    .export-format .chart-box { height: 400px !important; background: #1a1a1a !important; }
-    .export-format .axis-item { background: #1a1a1a !important; border: 1px solid #333 !important; }
-    .export-format .summary-box { background: #1a1a1a !important; border: 1px solid #333 !important; }
+    .export-format .chart-box { height: 450px !important; background: #2a2a2a !important; }
+    .export-format .axis-item { background: #2a2a2a !important; border: 1px solid #444 !important; }
+    .export-format .summary-box { background: #2a2a2a !important; border: 1px solid #444 !important; }
     
     .exporting .hide-on-export { display: none !important; }
-    
     .exporting input, .exporting select, .exporting textarea {
         border: none !important; 
         background: transparent !important; 
         appearance: none !important; 
-        -webkit-appearance: none !important; 
         padding: 0 !important;
         color: var(--primary-color) !important;
     }
@@ -372,15 +360,15 @@
     </div>
 
     <div class="video-link-section hide-on-export">
-        <label style="font-weight: 900; display: block; margin-bottom: 8px; color: var(--accent-color); font-size: 12px; letter-spacing: 1px;">🔗 VIDEO LINK (URL)</label>
-        <input type="url" id="videoUrlInput" placeholder="YouTubeやGoogleドライブのリンクをペースト" oninput="generateQR()">
+        <label style="font-weight: 900; display: block; margin-bottom: 8px; color: var(--accent-color); font-size: 11px; letter-spacing: 1px;">🔗解説動画のURLをペースト</label>
+        <input type="url" id="videoUrlInput" placeholder="https://..." oninput="generateQR()">
     </div>
 
     <div class="video-access-area" id="videoAccessArea" style="display: none;">
         <div id="qrcode"></div>
         <div class="video-text">
-            <h3>▶ PLAY VIDEO</h3>
-            <p>※スマホでPDFをご覧の方は、下部のリンク（またはこのエリア）をタップ。<br>※紙面の場合は左のQRコードをスキャンしてください。</p>
+            <h3>▶ PLAY PERFORMANCE VIDEO</h3>
+            <p>※スマホの方は下部リンク（またはこのエリア）をタップ。<br>※紙面の場合は左のQRコードをスキャンしてください。</p>
         </div>
     </div>
 
@@ -435,17 +423,17 @@
                 <div class="axis-header">${axis.name}</div>
                 <div class="hide-on-export">
                     <div class="slider-row">
-                        <span style="width:40px; color: var(--text-muted); font-weight: bold;">過去</span>
+                        <span style="width:40px; color: var(--text-muted); font-weight: bold;">PAST</span>
                         <input type="range" min="1" max="10" value="${axis.before}" oninput="updateData(${index}, 'before', this.value)">
                         <span class="score-val" id="before-val-${index}" style="color: var(--text-muted);">${axis.before}</span>
                     </div>
                     <div class="slider-row current">
-                        <span style="width:40px; color: var(--accent-color); font-weight: 900;">現在</span>
+                        <span style="width:40px; color: var(--accent-color); font-weight: 900;">NOW</span>
                         <input type="range" min="1" max="10" value="${axis.after}" oninput="updateData(${index}, 'after', this.value)">
                         <span class="score-val" id="after-val-${index}" style="color: var(--accent-color);">${axis.after}</span>
                     </div>
                 </div>
-                <textarea class="comment-box" placeholder="特記なし"></textarea>
+                <textarea class="comment-box" placeholder="フィードバックを入力..."></textarea>
             `;
             container.appendChild(div);
         });
@@ -462,23 +450,23 @@
                 labels: axesData.map(a => a.name),
                 datasets: [
                     { 
-                        label: '現在 (Current)', 
+                        label: 'Current', 
                         data: axesData.map(a => a.after), 
                         backgroundColor: 'rgba(204, 255, 0, 0.25)', 
                         borderColor: '#ccff00',
                         pointBackgroundColor: '#ccff00',
                         pointBorderColor: '#000',
-                        borderWidth: 2, 
+                        borderWidth: 3, 
                         order: 1 
                     },
                     { 
-                        label: '入会時 (Past)', 
+                        label: 'Past', 
                         data: axesData.map(a => a.before), 
                         backgroundColor: 'rgba(255, 255, 255, 0.05)', 
-                        borderColor: '#666666', 
-                        pointBackgroundColor: '#666666',
-                        borderWidth: 1.5, 
-                        borderDash: [4,4], 
+                        borderColor: '#888', 
+                        pointBackgroundColor: '#888',
+                        borderWidth: 1, 
+                        borderDash: [5,5], 
                         order: 2 
                     }
                 ]
@@ -492,11 +480,11 @@
                         ticks: { display: false, stepSize: 2 },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' },
                         angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        pointLabels: { font: { size: 11, weight: 'bold', family: 'Arial Black' }, color: '#ffffff' }
+                        pointLabels: { font: { size: 12, weight: 'bold', family: 'Helvetica' }, color: '#ffffff' }
                     } 
                 },
                 plugins: { 
-                    legend: { position: 'bottom', labels: { color: '#ffffff', boxWidth: 12, font: { size: 11, weight: 'bold' } } } 
+                    legend: { position: 'bottom', labels: { color: '#ffffff', boxWidth: 12, font: { size: 12, weight: 'bold' } } } 
                 }
             }
         });
@@ -527,24 +515,24 @@
         
         document.querySelectorAll('textarea').forEach(ta => {
             ta.innerHTML = ta.value; 
-            if(ta.value.trim() === '') { ta.value = "NO COMMENT"; ta.style.color = "#666666"; }
+            if(ta.value.trim() === '') { ta.value = "FEEDBACK: N/A"; ta.style.color = "#666"; }
         });
 
         container.classList.add('exporting', 'export-format');
 
         setTimeout(() => {
-            html2canvas(container, { scale: 2, backgroundColor: "#111111" }).then(canvas => {
+            html2canvas(container, { scale: 2, backgroundColor: "#1e1e1e" }).then(canvas => {
                 
                 container.classList.remove('exporting', 'export-format');
                 document.querySelectorAll('textarea').forEach(ta => {
-                    if(ta.value === "NO COMMENT") { ta.value = ""; ta.style.color = "#ffffff"; }
+                    if(ta.value === "FEEDBACK: N/A") { ta.value = ""; ta.style.color = "#ffffff"; }
                 });
 
                 const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
-                pdf.setFillColor(17, 17, 17);
+                pdf.setFillColor(30, 30, 30);
                 pdf.rect(0, 0, 210, 297, 'F');
 
                 const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -553,16 +541,16 @@
 
                 if (videoUrl) {
                     pdf.setTextColor(204, 255, 0);
-                    pdf.setFontSize(12);
-                    pdf.textWithLink('>>> TAP HERE TO PLAY VIDEO <<<', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
+                    pdf.setFontSize(13);
+                    pdf.textWithLink('>>> CLICK TO WATCH PERFORMANCE VIDEO <<<', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
                 }
 
                 const playerName = document.getElementById('playerName').value.trim() || 'Player';
                 const year = document.getElementById('yearSelect').value;
                 const month = document.getElementById('monthSelect').value;
-                pdf.save(`IDP_Report_${playerName}_${year}${month}.pdf`);
+                pdf.save(`ShibaLab_Report_${playerName}_${year}${month}.pdf`);
             });
-        }, 150);
+        }, 200);
     }
 
     setupDateSelectors();
