@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>IDP 成長可視化レポート（PDF生成ツール）</title>
+<title>Shiba Lab. IDP Report（PDF生成ツール）</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -21,7 +21,7 @@
         font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
         background-color: #e2e8f0;
         color: var(--text-main);
-        padding: 10px; /* スマホ向けに余白を縮小 */
+        padding: 10px;
         margin: 0;
         display: flex;
         flex-direction: column;
@@ -31,7 +31,7 @@
         width: 100%;
         max-width: 800px;
         background: #ffffff;
-        padding: 20px; /* スマホ向けに余白を縮小 */
+        padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         margin-bottom: 20px;
@@ -42,31 +42,75 @@
         text-align: center;
         border-bottom: 2px solid var(--primary-color);
         padding-bottom: 15px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     .header h1 {
         color: var(--primary-color);
-        font-size: 20px; /* スマホ向けに少し縮小 */
+        font-size: 20px;
         margin: 0 0 10px 0;
         letter-spacing: 1px;
     }
-    .player-inputs {
+
+    /* 選手名・年月入力セクション */
+    .player-meta {
         display: flex;
-        flex-direction: column; /* スマホでは縦並びに */
-        gap: 10px;
+        flex-direction: column;
+        gap: 15px;
         margin-bottom: 20px;
+        align-items: center;
     }
-    .player-inputs input {
-        font-size: 16px;
-        padding: 10px;
+    .name-group {
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .name-group input {
+        font-size: 18px;
+        padding: 5px 10px;
         border: 1px solid var(--border-color);
         border-radius: 4px;
         text-align: center;
-        font-weight: bold;
-        width: 100%;
-        box-sizing: border-box;
+        width: 160px;
     }
-    
+    .date-group {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 16px;
+    }
+    .date-group select {
+        padding: 5px 10px;
+        font-size: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background: #fff;
+    }
+
+    /* 総括コメント欄 */
+    .summary-section {
+        margin-bottom: 25px;
+    }
+    .summary-section label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+    .summary-box {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 14px;
+        line-height: 1.6;
+        min-height: 100px;
+        box-sizing: border-box;
+        background-color: #fffaf0;
+    }
+
     .video-link-section {
         background: #ebf8ff;
         border: 1px dashed #63b3ed;
@@ -87,7 +131,7 @@
     
     .video-access-area {
         display: flex;
-        flex-direction: column; /* スマホでは縦並びに */
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         gap: 15px;
@@ -105,20 +149,10 @@
         padding: 5px;
         border: 1px solid #cbd5e0;
     }
-    .video-text h3 {
-        margin: 0 0 5px 0;
-        color: var(--primary-color);
-        font-size: 16px;
-    }
-    .video-text p {
-        margin: 0;
-        font-size: 12px;
-        color: #718096;
-    }
 
     .content-grid {
         display: grid;
-        grid-template-columns: 1fr; /* スマホでは1カラム */
+        grid-template-columns: 1fr;
         gap: 20px;
         align-items: start;
     }
@@ -149,10 +183,8 @@
         margin-bottom: 5px;
         font-size: 12px;
     }
-    .slider-row input[type=range] {
-        flex: 1;
-        accent-color: var(--accent-color);
-    }
+    .slider-row input[type=range] { flex: 1; accent-color: var(--accent-color); }
+    .score-val { font-weight: bold; width: 20px; text-align: right; }
     .comment-box {
         width: 100%;
         margin-top: 10px;
@@ -161,7 +193,6 @@
         border-radius: 4px;
         font-size: 13px;
         line-height: 1.5;
-        resize: vertical;
         min-height: 50px;
         box-sizing: border-box;
     }
@@ -180,211 +211,6 @@
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         margin-bottom: 40px;
     }
-    .export-btn:hover { background-color: #9b2c2c; }
 
-    /* =========================================
-       💻 パソコン閲覧時のレイアウト（横幅768px以上）
-       ========================================= */
     @media (min-width: 768px) {
-        body { padding: 20px; }
-        #report-container { padding: 40px; }
-        .header h1 { font-size: 24px; }
-        .player-inputs { flex-direction: row; }
-        .video-access-area { flex-direction: row; text-align: left; }
-        .content-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-        .chart-box { height: 350px; }
-    }
-
-    /* =========================================
-       🖨️ PDFエクスポート時の強制PCレイアウト
-       （スマホ操作時でも綺麗なA4レポートにするため）
-       ========================================= */
-    .export-format {
-        width: 800px !important;
-        max-width: none !important;
-        padding: 40px !important;
-    }
-    .export-format .player-inputs { flex-direction: row !important; }
-    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; }
-    .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
-    .export-format .chart-box { height: 350px !important; }
-    
-    .exporting .hide-on-export { display: none !important; }
-    .exporting input, .exporting textarea {
-        border: none !important; background: transparent !important; resize: none !important; padding: 0 !important;
-    }
-    .exporting .axis-item {
-        border: none; background: transparent; padding: 0 0 10px 0; border-bottom: 1px solid var(--border-color); border-radius: 0;
-    }
-</style>
-</head>
-<body>
-
-<div id="report-container">
-    
-    <div class="header">
-        <h1>IDP PERFORMANCE REPORT</h1>
-        <div class="player-inputs">
-            <input type="text" id="playerName" value="山田 太郎 選手">
-            <input type="text" id="reportMonth" value="2026年5月度">
-        </div>
-    </div>
-
-    <div class="video-link-section hide-on-export">
-        <label style="font-weight: bold; display: block; margin-bottom: 8px; color: #2b6cb0;">🔗 共有する動画のURLを入力</label>
-        <input type="url" id="videoUrlInput" placeholder="YouTubeやGoogleドライブのリンク" oninput="generateQR()">
-        <p style="font-size: 11px; margin:0;">※入力すると自動でQRコードが生成されます</p>
-    </div>
-
-    <div class="video-access-area" id="videoAccessArea" style="display: none;">
-        <div id="qrcode"></div>
-        <div class="video-text">
-            <h3>▶ 解説動画はこちらから</h3>
-            <p>※スマホでPDFをご覧の方は、下の青いリンク（またはこのエリア）をタップしてください。<br>※紙でご覧の方は左のQRコードを読み取ってください。</p>
-        </div>
-    </div>
-
-    <div class="content-grid">
-        <div class="chart-box">
-            <canvas id="radarChart"></canvas>
-        </div>
-        <div id="axes-container">
-            </div>
-    </div>
-
-</div>
-
-<button class="export-btn" onclick="exportToPDF()">📄 PDFファイルとして保存（動画リンク付き）</button>
-
-<script>
-    // 💡 新しい5つの評価項目に変更
-    const axesData = [
-        { id: 'dribble', name: 'ドリブル', before: 3, after: 7 },
-        { id: 'kick', name: 'キック', before: 4, after: 6 },
-        { id: 'body', name: '身体操作', before: 3, after: 8 },
-        { id: 'application', name: '応用力', before: 5, after: 6 },
-        { id: 'spatial', name: '空間認知', before: 2, after: 7 }
-    ];
-
-    let chartInstance = null;
-    let qrCodeInstance = null;
-
-    function buildUI() {
-        const container = document.getElementById('axes-container');
-        axesData.forEach((axis, index) => {
-            const div = document.createElement('div');
-            div.className = 'axis-item';
-            div.innerHTML = `
-                <div class="axis-header">${axis.name}</div>
-                <div class="hide-on-export">
-                    <div class="slider-row">
-                        <span style="width:40px;">入会時</span>
-                        <input type="range" min="1" max="10" value="${axis.before}" oninput="updateData(${index}, 'before', this.value)">
-                        <span class="score-val" id="before-val-${index}" style="font-weight:bold; width:20px; text-align:right;">${axis.before}</span>
-                    </div>
-                    <div class="slider-row" style="color:var(--accent-color);">
-                        <span style="width:40px; font-weight:bold;">現在</span>
-                        <input type="range" min="1" max="10" value="${axis.after}" oninput="updateData(${index}, 'after', this.value)">
-                        <span class="score-val" id="after-val-${index}" style="font-weight:bold; width:20px; text-align:right;">${axis.after}</span>
-                    </div>
-                </div>
-                <textarea class="comment-box" placeholder="特記なし"></textarea>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function initChart() {
-        const ctx = document.getElementById('radarChart').getContext('2d');
-        if (chartInstance) chartInstance.destroy();
-
-        chartInstance = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: axesData.map(a => a.name),
-                datasets: [
-                    { label: '現在', data: axesData.map(a => a.after), backgroundColor: 'rgba(214, 158, 46, 0.4)', borderColor: '#d69e2e', borderWidth: 2, order: 1 },
-                    { label: '入会時', data: axesData.map(a => a.before), backgroundColor: 'rgba(113, 128, 150, 0.1)', borderColor: '#718096', borderWidth: 1, borderDash: [5,5], order: 2 }
-                ]
-            },
-            options: { 
-                responsive: true, 
-                maintainAspectRatio: false, 
-                scales: { 
-                    r: { min: 0, max: 10, ticks: { display: false }, pointLabels: { font: { size: 11, weight: 'bold' } } } 
-                },
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } }
-            }
-        });
-    }
-
-    function updateData(index, type, value) {
-        axesData[index][type] = parseInt(value);
-        document.getElementById(`${type}-val-${index}`).textContent = value;
-        initChart();
-    }
-
-    function generateQR() {
-        const url = document.getElementById('videoUrlInput').value.trim();
-        const accessArea = document.getElementById('videoAccessArea');
-        const qrContainer = document.getElementById('qrcode');
-        qrContainer.innerHTML = "";
-        
-        if (url) {
-            accessArea.style.display = "flex";
-            qrCodeInstance = new QRCode(qrContainer, {
-                text: url, width: 80, height: 80, colorDark : "#000000", colorLight : "#ffffff", correctLevel : QRCode.CorrectLevel.L
-            });
-        } else {
-            accessArea.style.display = "none";
-        }
-    }
-
-    function exportToPDF() {
-        const container = document.getElementById('report-container');
-        const videoUrl = document.getElementById('videoUrlInput').value.trim();
-        
-        document.querySelectorAll('textarea').forEach(ta => {
-            ta.innerHTML = ta.value; 
-            if(ta.value.trim() === '') { ta.value = "特記なし"; ta.style.color = "#718096"; }
-        });
-
-        // エクスポート用クラスの付与（スマホでもPCレイアウトを強制）
-        container.classList.add('exporting');
-        container.classList.add('export-format');
-
-        // 描画の安定化のために少しだけ遅延させる
-        setTimeout(() => {
-            html2canvas(container, { scale: 2, backgroundColor: "#ffffff" }).then(canvas => {
-                // クラスを解除して元のスマホレイアウトに戻す
-                container.classList.remove('exporting');
-                container.classList.remove('export-format');
-                document.querySelectorAll('textarea').forEach(ta => {
-                    if(ta.value === "特記なし") { ta.value = ""; ta.style.color = "#000000"; }
-                });
-
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-                
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-                if (videoUrl) {
-                    pdf.setTextColor(26, 54, 93);
-                    pdf.setFontSize(12);
-                    pdf.textWithLink('【ここをタップして解説動画を再生】', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
-                }
-
-                const playerName = document.getElementById('playerName').value.trim() || '選手';
-                pdf.save(`IDP_Report_${playerName}.pdf`);
-            });
-        }, 100);
-    }
-
-    buildUI();
-    initChart();
-</script>
-</body>
-</html>
+        body { padding: 20px
