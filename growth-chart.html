@@ -13,13 +13,10 @@
 <style>
     /* 🎨 究極の透過・ダーク＆ネオンボルト（Shiba Lab. アスリート仕様） */
     :root {
-        /* 【修正】ダークモードに戻し、透过度を極限まで引き上げ（不透明度30%） */
-        --card-bg: rgba(17, 17, 17, 0.3); 
-        /* 【修正】アクセントカラーをネオンボルトイエロー（ナイキ風）に変更 */
+        /* 【さらに修正】透過度を限界突破（不透明度15%） */
+        --card-bg: rgba(17, 17, 17, 0.15); 
         --accent-color: #ccff00; 
-        /* 【修正】テキストを白に反転 */
         --primary-color: #ffffff; 
-        /* 【修正】枠線を明るくしてグラス感を出す */
         --border-color: rgba(255, 255, 255, 0.15); 
         --text-main: #f4f4f5;
         --text-muted: #a1a1aa;
@@ -27,7 +24,6 @@
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        /* 背景全体を真っ黒に近いグレーにしつつ、ネオンボルトのグラデーションを配置 */
         background-color: #121212; 
         background-image: 
             radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.15) 0%, transparent 40%),
@@ -45,7 +41,7 @@
         width: 100%;
         max-width: 800px;
         background: var(--card-bg);
-        /* 【重要】すりガラス効果を強化（Blur 25px） */
+        /* すりガラス効果（Blur 25px）は維持して高級感を出す */
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(25px);
         padding: 20px;
@@ -65,7 +61,6 @@
     }
     
     .header h1 {
-        /* 【修正】タイトルをボールド（太字）＆イタリック（斜体）に */
         color: var(--primary-color);
         font-size: 24px;
         font-weight: 900;
@@ -96,7 +91,6 @@
         border: none;
         border-bottom: 2px solid rgba(255,255,255,0.3);
         background: transparent;
-        /* 名前をネオンボルトイエローに */
         color: var(--accent-color); 
         text-align: center;
         width: 180px;
@@ -119,8 +113,7 @@
         font-weight: bold;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        /* セレクトボックスを透過ブラックに */
-        background: rgba(0, 0, 0, 0.3);
+        background: rgba(0, 0, 0, 0.2); /* さらに透過 */
         color: var(--primary-color);
         outline: none;
     }
@@ -131,7 +124,6 @@
         display: block;
         font-size: 12px;
         font-weight: 900;
-        /* ラベルをネオンボルトイエローに */
         color: var(--accent-color); 
         margin-bottom: 8px;
         text-transform: uppercase;
@@ -146,8 +138,7 @@
         line-height: 1.6;
         min-height: 100px;
         box-sizing: border-box;
-        /* ボックスを透過ブラックに */
-        background-color: rgba(0, 0, 0, 0.25);
+        background-color: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
         color: var(--primary-color);
         outline: none;
         transition: border-color 0.2s;
@@ -156,7 +147,7 @@
 
     /* 動画リンク入力セクション */
     .video-link-section {
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
         border: 1px solid var(--border-color);
         padding: 15px;
         border-radius: 8px;
@@ -169,7 +160,7 @@
         font-size: 14px;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.3);
         color: #fff;
         margin-bottom: 10px;
         box-sizing: border-box;
@@ -184,14 +175,13 @@
         align-items: center;
         justify-content: center;
         gap: 15px;
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
         padding: 15px;
         border-radius: 8px;
         border: 1px solid var(--border-color);
         margin-bottom: 25px;
         text-align: center;
     }
-    /* QRコードは読み取りやすいよう白背景固定 */
     #qrcode {
         width: 80px;
         height: 80px;
@@ -224,14 +214,13 @@
         position: relative;
         height: 300px;
         width: 100%;
-        /* グラフエリアの背景を透過ブラックに */
-        background: radial-gradient(circle, rgba(40,40,40,0.4) 0%, rgba(10,10,10,0.4) 100%);
+        background: radial-gradient(circle, rgba(40,40,40,0.2) 0%, rgba(10,10,10,0.2) 100%); /* さらに透過 */
         border-radius: 12px;
         padding: 10px;
         box-sizing: border-box;
     }
     .axis-item {
-        background: rgba(0, 0, 0, 0.25);
+        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
         border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 15px;
@@ -273,7 +262,6 @@
         cursor: pointer;
     }
     .slider-row.current input[type=range]::-webkit-slider-thumb {
-        /* サムをネオンボルトイエローに */
         background: var(--accent-color); 
         box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
         width: 16px;
@@ -292,8 +280,7 @@
         line-height: 1.5;
         min-height: 50px;
         box-sizing: border-box;
-        /* コメント欄も透过ブラックに */
-        background: rgba(0, 0, 0, 0.2);
+        background: rgba(0, 0, 0, 0.1); /* さらに透過(10%) */
         color: var(--primary-color);
         outline: none;
         transition: border-color 0.2s;
@@ -305,7 +292,6 @@
         width: 100%;
         max-width: 800px;
         padding: 18px;
-        /* ボタンをネオンボルトイエローに */
         background-color: var(--accent-color); 
         color: #000000;
         font-size: 16px;
@@ -334,8 +320,6 @@
 
     /* =======================================================
        🖨️ PDFエクスポート用強制整形（非常に重要）
-       透過効果はPDF出力時にバグるため、このクラスが付与された瞬間だけ
-       背景をベタ塗りのダークグレー（#111111）に強制変更します。
        ======================================================= */
     .export-format { 
         width: 800px !important; 
@@ -354,7 +338,6 @@
     
     .exporting .hide-on-export { display: none !important; }
     
-    /* エクスポート時はボーダーや背景を消し、印字用のクリーンな見た目に */
     .exporting input, .exporting select, .exporting textarea {
         border: none !important; 
         background: transparent !important; 
@@ -413,7 +396,6 @@
 <button class="export-btn" onclick="exportToPDF()">📄 Export to PDF</button>
 
 <script>
-    // 分析項目
     const axesData = [
         { id: 'dribble', name: 'ドリブル', before: 3, after: 7 },
         { id: 'kick', name: 'キック', before: 4, after: 6 },
@@ -422,7 +404,6 @@
         { id: 'spatial', name: '空間認知', before: 2, after: 7 }
     ];
 
-    // 年月セレクターの初期化
     function setupDateSelectors() {
         const yearSelect = document.getElementById('yearSelect');
         const monthSelect = document.getElementById('monthSelect');
@@ -445,7 +426,6 @@
         }
     }
 
-    // 各項目UIの生成
     function buildUI() {
         const container = document.getElementById('axes-container');
         axesData.forEach((axis, index) => {
@@ -471,13 +451,11 @@
         });
     }
 
-    // チャートの初期化
     let chartInstance = null;
     function initChart() {
         const ctx = document.getElementById('radarChart').getContext('2d');
         if (chartInstance) chartInstance.destroy();
         
-        // 💡ダークテーマ＆ボルトイエロー用のグラフ配色
         chartInstance = new Chart(ctx, {
             type: 'radar',
             data: {
@@ -487,7 +465,7 @@
                         label: '現在 (Current)', 
                         data: axesData.map(a => a.after), 
                         backgroundColor: 'rgba(204, 255, 0, 0.25)', 
-                        borderColor: '#ccff00', // ボルトイエロー
+                        borderColor: '#ccff00',
                         pointBackgroundColor: '#ccff00',
                         pointBorderColor: '#000',
                         borderWidth: 2, 
@@ -552,14 +530,11 @@
             if(ta.value.trim() === '') { ta.value = "NO COMMENT"; ta.style.color = "#666666"; }
         });
 
-        // 💡エクスポート用のクラスを付与し、一時的に「すりガラス効果」をオフにしてベタ塗りにする
         container.classList.add('exporting', 'export-format');
 
         setTimeout(() => {
-            // 背景色をダークグレー(#111111)でキャプチャ
             html2canvas(container, { scale: 2, backgroundColor: "#111111" }).then(canvas => {
                 
-                // キャプチャが終わったらクラスを外して、画面上は再び「究極の透過＆ネオンボルト」に戻す
                 container.classList.remove('exporting', 'export-format');
                 document.querySelectorAll('textarea').forEach(ta => {
                     if(ta.value === "NO COMMENT") { ta.value = ""; ta.style.color = "#ffffff"; }
@@ -569,7 +544,6 @@
                 const { jsPDF } = window.jspdf;
                 const pdf = new jsPDF('p', 'mm', 'a4');
                 
-                // PDF全体の背景を黒で塗りつぶす（フチなし黒背景）
                 pdf.setFillColor(17, 17, 17);
                 pdf.rect(0, 0, 210, 297, 'F');
 
@@ -578,8 +552,7 @@
                 pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
 
                 if (videoUrl) {
-                    // ダークテーマに映えるネオンカラー（ボルトイエロー）のタップリンク
-                    pdf.setTextColor(204, 255, 0); // Accent Color (#ccff00)
+                    pdf.setTextColor(204, 255, 0);
                     pdf.setFontSize(12);
                     pdf.textWithLink('>>> TAP HERE TO PLAY VIDEO <<<', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
                 }
