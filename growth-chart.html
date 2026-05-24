@@ -11,20 +11,25 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-    /* 🎨 アスリート仕様のダーク・ネオンテーマ */
+    /* 🎨 アスリート仕様のダーク・グラスモーフィズムテーマ */
     :root {
-        --bg-color: #000000;         /* ピュアブラック */
-        --card-bg: #111111;          /* ダークグレー */
-        --primary-color: #ffffff;    /* ホワイトテキスト */
-        --accent-color: #ccff00;     /* ネオンボルト（ナイキ風イエローグリーン） */
-        --border-color: #333333;     /* ボーダー */
+        /* カードの背景を透過ブラック（70%の不透明度）に変更 */
+        --card-bg: rgba(20, 20, 20, 0.7); 
+        --primary-color: #ffffff;
+        --accent-color: #ccff00;
+        --border-color: rgba(255, 255, 255, 0.15); /* 枠線も少し透過させてガラス感を出す */
         --text-main: #f4f4f5;
         --text-muted: #a1a1aa;
     }
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        background-color: var(--bg-color);
+        /* 背景全体を漆黒にしつつ、左上と右下にうっすらとした光のグラデーションを置く */
+        background-color: #000000;
+        background-image: 
+            radial-gradient(circle at 10% 10%, rgba(204, 255, 0, 0.08) 0%, transparent 40%),
+            radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+        background-attachment: fixed;
         color: var(--text-main);
         padding: 10px;
         margin: 0;
@@ -37,9 +42,13 @@
         width: 100%;
         max-width: 800px;
         background: var(--card-bg);
+        /* すりガラス効果（背景のぼかし）を追加 */
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         padding: 20px;
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        border: 1px solid var(--border-color); /* ガラスのエッジを光らせる */
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         margin-bottom: 20px;
         position: relative;
         box-sizing: border-box;
@@ -81,7 +90,7 @@
         font-weight: 900;
         padding: 8px 15px;
         border: none;
-        border-bottom: 2px solid var(--border-color);
+        border-bottom: 2px solid rgba(255,255,255,0.3);
         background: transparent;
         color: var(--accent-color);
         text-align: center;
@@ -105,7 +114,7 @@
         font-weight: bold;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        background: #222;
+        background: rgba(0, 0, 0, 0.5);
         color: var(--primary-color);
         outline: none;
     }
@@ -130,15 +139,16 @@
         line-height: 1.6;
         min-height: 100px;
         box-sizing: border-box;
-        background-color: #1a1a1a;
+        background-color: rgba(0, 0, 0, 0.4);
         color: var(--primary-color);
         outline: none;
+        transition: border-color 0.2s;
     }
     .summary-box:focus { border-color: var(--accent-color); }
 
     /* 動画リンク入力セクション */
     .video-link-section {
-        background: #1a1a1a;
+        background: rgba(0, 0, 0, 0.4);
         border: 1px solid var(--border-color);
         padding: 15px;
         border-radius: 8px;
@@ -151,7 +161,7 @@
         font-size: 14px;
         border: 1px solid var(--border-color);
         border-radius: 6px;
-        background: #000;
+        background: rgba(0, 0, 0, 0.6);
         color: #fff;
         margin-bottom: 10px;
         box-sizing: border-box;
@@ -166,7 +176,7 @@
         align-items: center;
         justify-content: center;
         gap: 15px;
-        background: #1a1a1a;
+        background: rgba(0, 0, 0, 0.4);
         padding: 15px;
         border-radius: 8px;
         border: 1px solid var(--border-color);
@@ -206,13 +216,13 @@
         position: relative;
         height: 300px;
         width: 100%;
-        background: radial-gradient(circle, #222 0%, #111 100%);
+        background: radial-gradient(circle, rgba(40,40,40,0.6) 0%, rgba(10,10,10,0.6) 100%);
         border-radius: 12px;
         padding: 10px;
         box-sizing: border-box;
     }
     .axis-item {
-        background: #1a1a1a;
+        background: rgba(0, 0, 0, 0.4);
         border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 15px;
@@ -229,7 +239,7 @@
         letter-spacing: 1px;
     }
     
-    /* カスタムスライダー（先進的デザイン） */
+    /* カスタムスライダー */
     .slider-row {
         display: flex;
         align-items: center;
@@ -240,7 +250,7 @@
     input[type=range] {
         flex: 1;
         -webkit-appearance: none;
-        background: #333;
+        background: rgba(255, 255, 255, 0.1);
         height: 4px;
         border-radius: 2px;
         outline: none;
@@ -253,10 +263,9 @@
         background: var(--text-muted);
         cursor: pointer;
     }
-    /* 現在値（After）のネオンサム */
     .slider-row.current input[type=range]::-webkit-slider-thumb {
         background: var(--accent-color);
-        box-shadow: 0 0 8px var(--accent-color);
+        box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
         width: 16px;
         height: 16px;
     }
@@ -273,9 +282,10 @@
         line-height: 1.5;
         min-height: 50px;
         box-sizing: border-box;
-        background: #111;
+        background: rgba(0, 0, 0, 0.3);
         color: var(--primary-color);
         outline: none;
+        transition: border-color 0.2s;
     }
     .comment-box:focus { border-color: var(--accent-color); }
 
@@ -291,17 +301,17 @@
         border: none;
         border-radius: 8px;
         cursor: pointer;
-        box-shadow: 0 4px 15px rgba(204, 255, 0, 0.3);
+        box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
         margin-bottom: 40px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        transition: transform 0.1s;
+        transition: all 0.2s;
     }
     .export-btn:active { transform: scale(0.98); }
 
     /* レスポンシブ (PC) */
     @media (min-width: 768px) {
-        body { padding: 30px; }
+        body { padding: 40px 20px; }
         #report-container { padding: 40px; }
         .header h1 { font-size: 32px; }
         .player-meta { flex-direction: row; justify-content: center; gap: 40px; }
@@ -310,12 +320,26 @@
         .chart-box { height: 400px; }
     }
 
-    /* PDFエクスポート用強制整形 */
-    .export-format { width: 800px !important; max-width: none !important; padding: 40px !important; }
+    /* =======================================================
+       🖨️ PDFエクスポート用強制整形（非常に重要）
+       透過効果はPDF出力時にバグるため、このクラスが付与された瞬間だけ
+       背景をベタ塗りのダークグレー（#111111）に強制変更します。
+       ======================================================= */
+    .export-format { 
+        width: 800px !important; 
+        max-width: none !important; 
+        padding: 40px !important; 
+        background: #111111 !important; /* 透け感を消してベタ塗りに */
+        backdrop-filter: none !important; /* ぼかし効果をオフ */
+        border: none !important;
+    }
     .export-format .player-meta { flex-direction: row !important; gap: 40px !important; }
-    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; }
+    .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #1a1a1a !important; }
     .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
-    .export-format .chart-box { height: 400px !important; }
+    .export-format .chart-box { height: 400px !important; background: #1a1a1a !important; }
+    .export-format .axis-item { background: #1a1a1a !important; border: 1px solid #333 !important; }
+    .export-format .summary-box { background: #1a1a1a !important; border: 1px solid #333 !important; }
+    
     .exporting .hide-on-export { display: none !important; }
     
     /* エクスポート時はボーダーや背景を消し、印字用のクリーンな見た目に */
@@ -512,11 +536,14 @@
             if(ta.value.trim() === '') { ta.value = "NO COMMENT"; ta.style.color = "#666666"; }
         });
 
+        // 💡エクスポート用のクラスを付与し、一時的に「すりガラス効果」をオフにしてベタ塗りにする
         container.classList.add('exporting', 'export-format');
 
         setTimeout(() => {
             // 背景色をダークグレー(#111111)でキャプチャ
             html2canvas(container, { scale: 2, backgroundColor: "#111111" }).then(canvas => {
+                
+                // キャプチャが終わったらクラスを外して、画面上は再び「すりガラス効果」に戻す
                 container.classList.remove('exporting', 'export-format');
                 document.querySelectorAll('textarea').forEach(ta => {
                     if(ta.value === "NO COMMENT") { ta.value = ""; ta.style.color = "#ffffff"; }
