@@ -13,9 +13,8 @@
 <style>
     /* 🎨 チャコールグレー × ネオンボルト（Shiba Lab. 次世代アスリート仕様） */
     :root {
-        /* 【修正】真っ黒を避け、洗練されたチャコールグレー(30%透過)をベースに */
         --card-bg: rgba(45, 45, 45, 0.4); 
-        --accent-color: #ccff00; /* ネオンボルト */
+        --accent-color: #ccff00; 
         --primary-color: #ffffff; 
         --border-color: rgba(255, 255, 255, 0.15); 
         --text-main: #f4f4f5;
@@ -24,7 +23,6 @@
     
     body {
         font-family: 'Helvetica Neue', 'Arial Black', 'Hiragino Kaku Gothic ProN', sans-serif;
-        /* 【修正】背景を漆黒ではなく、深みのあるチャコールグレー(#1e1e1e)に */
         background-color: #1e1e1e; 
         background-image: 
             radial-gradient(circle at 15% 15%, rgba(204, 255, 0, 0.12) 0%, transparent 50%),
@@ -42,7 +40,6 @@
         width: 100%;
         max-width: 800px;
         background: var(--card-bg);
-        /* すりガラス効果 */
         backdrop-filter: blur(30px);
         -webkit-backdrop-filter: blur(30px);
         padding: 20px;
@@ -57,8 +54,8 @@
     .header {
         text-align: center;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 20px;
-        margin-bottom: 25px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
     }
     
     .header h1 {
@@ -66,7 +63,7 @@
         font-size: 24px;
         font-weight: 900;
         font-style: italic;
-        margin: 0 0 15px 0;
+        margin: 0 0 10px 0;
         letter-spacing: 2px;
         text-transform: uppercase;
     }
@@ -74,7 +71,7 @@
     .player-meta {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         align-items: center;
     }
     .name-group {
@@ -87,7 +84,7 @@
     .name-group input {
         font-size: 20px;
         font-weight: 900;
-        padding: 8px 15px;
+        padding: 6px 15px;
         border: none;
         border-bottom: 2px solid rgba(255,255,255,0.2);
         background: transparent;
@@ -118,24 +115,28 @@
         outline: none;
     }
 
-    .summary-section { margin-bottom: 30px; }
+    .summary-section { margin-bottom: 20px; }
     .summary-section label {
         display: block;
         font-size: 12px;
         font-weight: 900;
         color: var(--accent-color); 
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
     .summary-box {
         width: 100%;
-        padding: 15px;
+        padding: 12px;
         border: 1px solid var(--border-color);
         border-radius: 12px;
         font-size: 14px;
-        line-height: 1.6;
-        min-height: 110px;
+        line-height: 1.5;
+        /* 【修正】文字数に応じて自動伸縮するため、初期高さを低く設定 */
+        min-height: 48px;
+        height: auto;
+        resize: none;
+        overflow: hidden;
         box-sizing: border-box;
         background-color: rgba(255, 255, 255, 0.05);
         color: var(--primary-color);
@@ -147,20 +148,20 @@
     .video-link-section {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--border-color);
-        padding: 15px;
+        padding: 12px;
         border-radius: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         text-align: center;
     }
     .video-link-section input {
         width: 100%;
-        padding: 12px;
+        padding: 10px;
         font-size: 14px;
         border: 1px solid var(--border-color);
         border-radius: 8px;
         background: rgba(0, 0, 0, 0.3);
         color: #fff;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         box-sizing: border-box;
         outline: none;
     }
@@ -170,48 +171,48 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 15px;
+        gap: 12px;
         background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
+        padding: 15px;
         border-radius: 12px;
         border: 1px solid var(--border-color);
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         text-align: center;
     }
     #qrcode {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         background: #ffffff;
-        padding: 8px;
+        padding: 5px;
         border-radius: 8px;
     }
     .video-text h3 {
-        margin: 0 0 5px 0;
+        margin: 0 0 4px 0;
         color: var(--accent-color);
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
     .video-text p {
         margin: 0;
-        font-size: 11px;
+        font-size: 10px;
         color: var(--text-muted);
     }
 
     .content-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 15px;
         align-items: start;
     }
     .chart-box {
         position: relative;
-        height: 320px;
+        height: 300px;
         width: 100%;
         background: radial-gradient(circle, rgba(60,60,60,0.4) 0%, rgba(30,30,30,0.4) 100%);
         border-radius: 16px;
-        padding: 15px;
+        padding: 10px;
         box-sizing: border-box;
         border: 1px solid var(--border-color);
     }
@@ -219,16 +220,16 @@
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--border-color);
         border-radius: 12px;
-        padding: 18px;
-        margin-bottom: 12px;
+        padding: 12px 15px;
+        margin-bottom: 10px;
     }
     .axis-header {
         font-weight: 900;
         color: var(--primary-color);
-        margin-bottom: 15px;
-        font-size: 14px;
+        margin-bottom: 10px;
+        font-size: 13px;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 10px;
+        padding-bottom: 5px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
@@ -236,9 +237,9 @@
     .slider-row {
         display: flex;
         align-items: center;
-        gap: 12px;
-        margin-bottom: 10px;
-        font-size: 12px;
+        gap: 10px;
+        margin-bottom: 8px;
+        font-size: 11px;
     }
     input[type=range] {
         flex: 1;
@@ -258,22 +259,26 @@
     }
     .slider-row.current input[type=range]::-webkit-slider-thumb {
         background: var(--accent-color); 
-        box-shadow: 0 0 12px rgba(204, 255, 0, 0.7);
+        box-shadow: 0 0 10px rgba(204, 255, 0, 0.7);
         width: 16px;
         height: 16px;
     }
 
-    .score-val { font-weight: 900; font-size: 14px; width: 20px; text-align: right; }
+    .score-val { font-weight: 900; font-size: 13px; width: 20px; text-align: right; }
     
     .comment-box {
         width: 100%;
-        margin-top: 12px;
-        padding: 12px;
+        margin-top: 8px;
+        padding: 10px;
         border: 1px solid var(--border-color);
         border-radius: 8px;
-        font-size: 13px;
+        font-size: 12px;
         line-height: 1.5;
-        min-height: 60px;
+        /* 【修正】文字数に応じて自動伸縮 */
+        min-height: 38px;
+        height: auto;
+        resize: none;
+        overflow: hidden;
         box-sizing: border-box;
         background: rgba(0, 0, 0, 0.2);
         color: var(--primary-color);
@@ -284,10 +289,10 @@
     .export-btn {
         width: 100%;
         max-width: 800px;
-        padding: 20px;
+        padding: 18px;
         background-color: var(--accent-color); 
         color: #000000;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 900;
         border: none;
         border-radius: 12px;
@@ -301,28 +306,29 @@
     .export-btn:active { transform: scale(0.97); }
 
     @media (min-width: 768px) {
-        body { padding: 40px 20px; }
-        #report-container { padding: 40px; }
-        .header h1 { font-size: 32px; }
-        .player-meta { flex-direction: row; justify-content: center; gap: 50px; }
+        body { padding: 30px 20px; }
+        #report-container { padding: 30px; }
+        .header h1 { font-size: 28px; }
+        .player-meta { flex-direction: row; justify-content: center; gap: 40px; }
         .video-access-area { flex-direction: row; text-align: left; }
-        .content-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
-        .chart-box { height: 450px; }
+        .content-grid { grid-template-columns: 1fr 1fr; gap: 25px; }
+        .chart-box { height: 350px; }
     }
 
     /* 🖨️ エクスポート用：印字に耐えうるクリーンなチャコール設定 */
     .export-format { 
         width: 800px !important; 
         max-width: none !important; 
-        padding: 40px !important; 
+        padding: 30px !important; 
         background: #1e1e1e !important; 
         backdrop-filter: none !important; 
         border: none !important;
     }
-    .export-format .player-meta { flex-direction: row !important; gap: 50px !important; }
+    .export-format .player-meta { flex-direction: row !important; gap: 40px !important; }
     .export-format .video-access-area { flex-direction: row !important; text-align: left !important; background: #2a2a2a !important; }
-    .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
-    .export-format .chart-box { height: 450px !important; background: #2a2a2a !important; }
+    .export-format .content-grid { grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+    /* エクスポート時はグラフの高さを少し抑えて余白を稼ぐ */
+    .export-format .chart-box { height: 320px !important; background: #2a2a2a !important; }
     .export-format .axis-item { background: #2a2a2a !important; border: 1px solid #444 !important; }
     .export-format .summary-box { background: #2a2a2a !important; border: 1px solid #444 !important; }
     
@@ -356,11 +362,11 @@
 
     <div class="summary-section">
         <label>Feedback & Summary</label>
-        <textarea id="summaryComment" class="summary-box" placeholder="今月の全体的な成長と今後の課題について入力してください"></textarea>
+        <textarea id="summaryComment" class="summary-box" placeholder="今月の全体的な成長と今後の課題について入力してください" oninput="autoResize(this)"></textarea>
     </div>
 
     <div class="video-link-section hide-on-export">
-        <label style="font-weight: 900; display: block; margin-bottom: 8px; color: var(--accent-color); font-size: 11px; letter-spacing: 1px;">🔗解説動画のURLをペースト</label>
+        <label style="font-weight: 900; display: block; margin-bottom: 6px; color: var(--accent-color); font-size: 11px; letter-spacing: 1px;">🔗解説動画のURLをペースト</label>
         <input type="url" id="videoUrlInput" placeholder="https://..." oninput="generateQR()">
     </div>
 
@@ -391,6 +397,12 @@
         { id: 'application', name: '応用力', before: 5, after: 6 },
         { id: 'spatial', name: '空間認知', before: 2, after: 7 }
     ];
+
+    // 💡 テキストエリアの自動伸縮機能
+    function autoResize(el) {
+        el.style.height = 'auto';
+        el.style.height = el.scrollHeight + 'px';
+    }
 
     function setupDateSelectors() {
         const yearSelect = document.getElementById('yearSelect');
@@ -433,7 +445,7 @@
                         <span class="score-val" id="after-val-${index}" style="color: var(--accent-color);">${axis.after}</span>
                     </div>
                 </div>
-                <textarea class="comment-box" placeholder="フィードバックを入力..."></textarea>
+                <textarea class="comment-box" placeholder="フィードバックを入力..." oninput="autoResize(this)"></textarea>
             `;
             container.appendChild(div);
         });
@@ -503,7 +515,7 @@
         qrContainer.innerHTML = "";
         if (url) {
             accessArea.style.display = "flex";
-            new QRCode(qrContainer, { text: url, width: 80, height: 80, colorDark : "#000000", colorLight : "#ffffff" });
+            new QRCode(qrContainer, { text: url, width: 70, height: 70, colorDark : "#000000", colorLight : "#ffffff" });
         } else {
             accessArea.style.display = "none";
         }
@@ -513,9 +525,12 @@
         const container = document.getElementById('report-container');
         const videoUrl = document.getElementById('videoUrlInput').value.trim();
         
+        // 全てのテキストエリアの高さを再計算（念のため）
         document.querySelectorAll('textarea').forEach(ta => {
             ta.innerHTML = ta.value; 
             if(ta.value.trim() === '') { ta.value = "FEEDBACK: N/A"; ta.style.color = "#666"; }
+            ta.style.height = 'auto';
+            ta.style.height = ta.scrollHeight + 'px';
         });
 
         container.classList.add('exporting', 'export-format');
@@ -535,14 +550,28 @@
                 pdf.setFillColor(30, 30, 30);
                 pdf.rect(0, 0, 210, 297, 'F');
 
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
+                let pdfWidth = pdf.internal.pageSize.getWidth();      // 210mm
+                let pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+                // 💡 見切れ防止機能：A4サイズ（下の動画リンク分を引いた約275mm）を超える場合は、全体を少し縮小してピッタリ収める
+                const maxAllowedHeight = pageHeight - 20; 
+                let xOffset = 0;
+                
+                if (pdfHeight > maxAllowedHeight) {
+                    const ratio = maxAllowedHeight / pdfHeight;
+                    pdfHeight = maxAllowedHeight;
+                    pdfWidth = pdfWidth * ratio;
+                    xOffset = (pdf.internal.pageSize.getWidth() - pdfWidth) / 2; // 縮小した分、中央に配置
+                }
+
+                pdf.addImage(imgData, 'PNG', xOffset, 0, pdfWidth, pdfHeight);
 
                 if (videoUrl) {
                     pdf.setTextColor(204, 255, 0);
-                    pdf.setFontSize(13);
-                    pdf.textWithLink('>>> CLICK TO WATCH PERFORMANCE VIDEO <<<', pdfWidth / 2, pdfHeight + 15, { url: videoUrl }, { align: 'center' });
+                    pdf.setFontSize(11);
+                    // リンクテキストも縮小後の高さに合わせて配置
+                    pdf.textWithLink('>>> CLICK TO WATCH PERFORMANCE VIDEO <<<', pdf.internal.pageSize.getWidth() / 2, pdfHeight + 12, { url: videoUrl }, { align: 'center' });
                 }
 
                 const playerName = document.getElementById('playerName').value.trim() || 'Player';
